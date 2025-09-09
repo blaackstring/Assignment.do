@@ -7,7 +7,7 @@ import CheckIn from "../models/CheckIn.js";
 export const task = cron.schedule("* * * * *", async () => {
   const date = new Date();
   // Format time as HH:MM (24-hour)
-  const currentTime = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" , hour12: false });
+  const currentTime = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" , hour12: false,timeZone: "Asia/Kolkata" });
 
   console.log("Checking reminders at", currentTime);
 
