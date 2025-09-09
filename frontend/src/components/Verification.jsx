@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Shield, CheckCircle, Clock, ArrowRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { habitsAPI, VerfyUser } from '../services/api';
+import { authAPI, habitsAPI, VerfyUser } from '../services/api';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
@@ -15,15 +15,16 @@ export default function Verification() {
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(0);
   const [error, setError] = useState('');
-  const [isVerified,setIsVerified]=useState(false);
+  const [User,setUser]=useState();
 
   useEffect(()=>{
 
    (async()=>{
-     const res= await VerfyUser.isVerified(user.id)
-
-     if(res.status){
-      setIsVerified(true)
+     const res= await authAPI.getProfile()
+    console.log(res);
+    
+     if(res){
+      setUser(res?.user)
      }
      console.log(res)
    })()
@@ -32,7 +33,7 @@ export default function Verification() {
     }
     
 
-  },[user])
+  },[])
   useEffect(() => {
     let interval = null;
     if (timer > 0) {
@@ -128,7 +129,7 @@ export default function Verification() {
   return (
     <div className="min-h-screen  bg-gradient-to-r from-black via-black/80  to-black flex items-center justify-center p-4">
         <header className='w-full px-4 py-2 '></header>
-    { !isVerified&& <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md">
+    { !User?.isVerified&&<div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md">
         
         {step === 'email' && (
           <div className="text-center">
@@ -250,7 +251,7 @@ export default function Verification() {
         )}
       </div>}
 
-      <div className='absolute top-50   flex rounded flex-col ' >
+      {User?.isVerified&<div className='absolute top-50   flex rounded flex-col ' >
     <div className='w-90 h-40 bg-white/10 rounded-2xl flex justify-center items-center flex-col'> 
       <div>
         <span className='text-xl'>Your Mail</span><span className='bg-gradient-to-r text-2xl ml-2 bg-clip-text text-transparent from-red-500 font-bold via-purple-300 to-sky-400/50'>{user.email}</span>
@@ -264,7 +265,7 @@ export default function Verification() {
       </div>
     </div>
     
-      </div>
+      </div>}
     </div>
   );
 }

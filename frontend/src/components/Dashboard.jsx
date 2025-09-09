@@ -14,15 +14,16 @@ const Dashboard = () => {
   const [habits, setHabits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [isVerified,setIsVerified]=useState(false);
+  const [User,setUser]=useState();
 
   useEffect(()=>{
 
    (async()=>{
-     const res= await VerfyUser.isVerified(user.id)
-
-     if(res.status){
-      setIsVerified(true)
+     const res= await authAPI.getProfile()
+    console.log(res);
+    
+     if(res){
+      setUser(res?.user)
      }
      console.log(res)
    })()
@@ -31,7 +32,7 @@ const Dashboard = () => {
     }
     
 
-  },[user])
+  },[])
 
   useEffect(() => {
     fetchHabits();
@@ -123,14 +124,14 @@ const Dashboard = () => {
                 <span>Social</span>
               </Link>
 
-                 {(
+                 {!User?.isVerified?(
               <Link
                 to="/verify"
                 className="flex items-center space-x-2 text-gray-300 hover:text-gray-600 transition-colors"
               >
                 <Mail className="h-5 w-5" />
                 <span>Verify Email</span>
-              </Link>)}
+              </Link>):<span className='font-bold mr-2 ml-2'>Verified✔️</span>}
               <button
                 onClick={handleLogout}
                 className="flex items-center space-x-2 text-gray-300 hover:text-gray-600 transition-colors"
