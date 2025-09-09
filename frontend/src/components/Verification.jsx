@@ -24,14 +24,13 @@ export default function Verification() {
     console.log(res);
     
      if(res){
-      setUser(res?.user)
+      setUser(res?.data?.user)
      }
      console.log(res)
    })()
     if(!user){
       navigate('/login')
     }
-    
 
   },[])
   useEffect(() => {
@@ -127,7 +126,7 @@ export default function Verification() {
   };
 
   return (
-    <div className="min-h-screen  bg-gradient-to-r from-black via-black/80  to-black flex items-center justify-center p-4">
+    <div className="min-h-screen  bg-gradient-to-r flex-col from-black via-black/80  to-black flex items-center justify-center p-4">
         <header className='w-full px-4 py-2 '></header>
     { !User?.isVerified&&<div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md">
         
@@ -166,7 +165,7 @@ export default function Verification() {
           </div>
         )}
 
-        {step === 'otp' && !isVerified(
+        {step === 'otp' &&(
           <div className="text-center">
             <div className="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Shield className="w-10 h-10 text-purple-600" />
@@ -251,7 +250,7 @@ export default function Verification() {
         )}
       </div>}
 
-      {User?.isVerified&<div className='absolute top-50   flex rounded flex-col ' >
+      {User?.isVerified&&<div className='absolute top-50 left  flex rounded flex-col ' >
     <div className='w-90 h-40 bg-white/10 rounded-2xl flex justify-center items-center flex-col'> 
       <div>
         <span className='text-xl'>Your Mail</span><span className='bg-gradient-to-r text-2xl ml-2 bg-clip-text text-transparent from-red-500 font-bold via-purple-300 to-sky-400/50'>{user.email}</span>

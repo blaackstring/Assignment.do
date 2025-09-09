@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { habitsAPI, checkInsAPI, VerfyUser } from '../services/api';
+import { habitsAPI, checkInsAPI, VerfyUser, authAPI } from '../services/api';
 import { Plus, Calendar, Target, TrendingUp, LogOut, Users, Activity, Mail } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -23,7 +23,7 @@ const Dashboard = () => {
     console.log(res);
     
      if(res){
-      setUser(res?.user)
+      setUser(res?.data?.user)
      }
      console.log(res)
    })()
@@ -131,7 +131,7 @@ const Dashboard = () => {
               >
                 <Mail className="h-5 w-5" />
                 <span>Verify Email</span>
-              </Link>):<span className='font-bold mr-2 ml-2'>Verified✔️</span>}
+              </Link>):<span className='font-bold mr-2 ml-2 text-center text-gray-300 border-1 p-2 rounded-2xl hover:bg-white hover:text-black transition-all ease-in-out cursor-pointer duration-300'>Verified ✔️</span>}
               <button
                 onClick={handleLogout}
                 className="flex items-center space-x-2 text-gray-300 hover:text-gray-600 transition-colors"

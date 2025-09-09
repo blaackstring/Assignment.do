@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Eye, EyeOff, User, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 import Common from './Common';
+import toast from 'react-hot-toast';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -126,6 +127,7 @@ const LoginForm = () => {
       } else {
         // Handle different types of errors
         if (result.error === 'invalid_credentials') {
+           toast.error('invalid_credentials')
           setErrors({ 
             server: 'Invalid email or password. Please try again.' 
           });
