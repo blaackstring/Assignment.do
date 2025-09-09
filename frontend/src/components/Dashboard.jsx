@@ -123,7 +123,7 @@ const Dashboard = () => {
                 <span>Social</span>
               </Link>
 
-                 {!isVerified&&(
+                 {(
               <Link
                 to="/verify"
                 className="flex items-center space-x-2 text-gray-300 hover:text-gray-600 transition-colors"
