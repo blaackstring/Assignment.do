@@ -247,11 +247,11 @@ const LoginForm = () => {
                   required
                   aria-invalid={errors.password ? 'true' : 'false'}
                   aria-describedby={errors.password ? 'password-error' : undefined}
-                  className={`pl-10 pr-10 appearance-none rounded-lg relative block w-full px-3 py-3 border ${
+                  className={`pl-10 pr-10 text-white appearance-none rounded-lg relative block w-full px-3 py-3 border ${
                     errors.password 
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
                       : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
-                  } placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:z-10 sm:text-sm transition-colors`}
+                  } placeholder-gray-500 focus:outline-none focus:ring-2 focus:z-10 sm:text-sm transition-colors`}
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
